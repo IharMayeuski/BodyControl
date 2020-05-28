@@ -3,13 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/phone"
-            android:layout_weight="4"
-            android:layout_width="0dp"
+        <Spinner
+            android:id="@+id/products"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content" />
+        <Spinner
+            android:id="@+id/productweights"
+            android:layout_width="100dp"
             android:layout_height="wrap_content" />
         <Button
             android:layout_weight="1"
@@ -23,10 +27,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:onClick="remove"/>
+
     </LinearLayout>
+
+
+
     <ListView
         android:choiceMode="multipleChoice"
         android:id="@+id/productList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+    </ListView>
+
 </LinearLayout>
