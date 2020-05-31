@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     int calories = 0;
     String DEFAULT_PRODUCT = "Choose";
     String DEFAULT_WEIGHT = "0";
-    List<String> weights = Arrays.asList(DEFAULT_WEIGHT, "50", "75", "100");
+    List<String> weights = Arrays.asList(DEFAULT_WEIGHT, "50", "75", "100", "200", "500");
 
 
     @Override
@@ -85,18 +85,15 @@ public class MainActivity extends AppCompatActivity {
             adapterProducts.notifyDataSetChanged();
             calories += productCalorie;
             TextView textView = (TextView) findViewById(R.id.textViewCalories);
-            textView.setText(String.valueOf(calories) + " cal.");
+            textView.setText(calories + " cal.");
             spinnerChoiceProduct.setSelection(0);
             spinnerChoiceWeight.setSelection(0);
         } else {
             Context context = getApplicationContext();
             int duration = Toast.LENGTH_LONG;
-            CharSequence text;
-            if (productName.isEmpty() || productName.equals(DEFAULT_PRODUCT)) {
-                text = "Please to choose your product!";
-            } else {
-                text = "Your weight is EMPTY!";
-            }
+            CharSequence text = productName.isEmpty() || productName.equals(DEFAULT_PRODUCT)
+                    ? "Please to choose your product!"
+                    : "Your weight is EMPTY!";
             Toast toast = Toast.makeText(context, text, duration);
             toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
             toast.show();
@@ -130,6 +127,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
-
-
 }
