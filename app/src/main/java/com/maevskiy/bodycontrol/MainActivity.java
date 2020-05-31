@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static android.widget.Toast.*;
+
 public class MainActivity extends AppCompatActivity {
     List<String> productForChoice = new ArrayList();
     List<Product> products = new ArrayList();
@@ -28,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     ListView productList;
     int calories = 0;
     String DEFAULT_PRODUCT = "Choose";
-    String DEFAULT_WEIGHT = "0";
-    List<String> weights = Arrays.asList(DEFAULT_WEIGHT, "50", "75", "100");
+    String DEFAULT_WEIGHT = "0 g.";
+    List<String> weights = Arrays.asList(DEFAULT_WEIGHT, "50", "75", "100", "200", "500");
 
 
     @Override
@@ -85,31 +87,27 @@ public class MainActivity extends AppCompatActivity {
             adapterProducts.notifyDataSetChanged();
             calories += productCalorie;
             TextView textView = (TextView) findViewById(R.id.textViewCalories);
-            textView.setText(String.valueOf(calories) + " cal.");
+            textView.setText(calories + " cal.");
             spinnerChoiceProduct.setSelection(0);
             spinnerChoiceWeight.setSelection(0);
         } else {
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_LONG;
-            CharSequence text;
-            if (productName.isEmpty() || productName.equals(DEFAULT_PRODUCT)) {
-                text = "Please to choose your product!";
-            } else {
-                text = "Your weight is EMPTY!";
-            }
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
-            toast.show();
+            CharSequence text = productName.isEmpty() || productName.equals(DEFAULT_PRODUCT)
+                    ? "Please to choose your product!"
+                    : "Your weight is EMPTY!";
+            prepareToast(text, LENGTH_LONG);
         }
     }
 
     public void remove(View view) {
+        if (products.isEmpty() || selectedProducts.isEmpty()) {
+            prepareToast("You don't choose any product for deleting", LENGTH_LONG);
+        }
         for (int i = 0; i < selectedProducts.size(); i++) {
             adapterProducts.remove(selectedProducts.get(i));
             calories -= selectedProducts.get(i).getCalories();
         }
         TextView textView = (TextView) findViewById(R.id.textViewCalories);
-        textView.setText(String.valueOf(calories));
+        textView.setText(calories + " cal.");
         productList.clearChoices();
         selectedProducts.clear();
         adapterProducts.notifyDataSetChanged();
@@ -131,5 +129,9 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-
+    private void prepareToast (CharSequence text, int duration) {
+        Toast toast = makeText(getApplicationContext(), text, duration);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
+        toast.show();
+    }
 }

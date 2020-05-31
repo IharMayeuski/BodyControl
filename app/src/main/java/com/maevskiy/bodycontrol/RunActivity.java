@@ -21,15 +21,16 @@ public class RunActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
         Intent caller = getIntent();
-        int calories = caller.getIntExtra("calories", 0);
+        double calories = caller.getIntExtra("calories", 0);
         EditText haveToRunKm = (EditText) findViewById(R.id.editText);
         DecimalFormat formatVal = new DecimalFormat("##.##");
-        double kmForRun = calories/1000;
+        double kmForRun = calories/800;
         haveToRunKm.setText(formatVal.format(kmForRun) + " km.");
         ImageView imageView = (ImageView) findViewById(R.id.image);
         imageView.setImageResource(R.drawable.runner);
-
-        pianoMusic = MediaPlayer.create(this, R.raw.piano);
+        if (pianoMusic == null) {
+            pianoMusic = MediaPlayer.create(this, R.raw.piano);
+        }
         Switch switch_looping = (Switch) findViewById(R.id.switch_looping);
         switch_looping.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -40,7 +41,9 @@ public class RunActivity extends AppCompatActivity {
     }
 
     public void playMusic(View view) {
-        pianoMusic.start();
+        if (pianoMusic != null) {
+            pianoMusic.start();
+        }
     }
 
     public void pauseMusic (View view) {
@@ -50,6 +53,7 @@ public class RunActivity extends AppCompatActivity {
     }
 
     public void backToMain (View view) {
+        pianoMusic.stop();
         Intent goToMain = new Intent();
         goToMain.setClass(this, MainActivity.class);
         startActivity(goToMain);

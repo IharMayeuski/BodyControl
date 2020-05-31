@@ -1,18 +1,21 @@
 package com.maevskiy.bodycontrol;
 
 public enum Food {
-    BROCCOLI ("broccoli", 2900, "Useful product"),
-    BREAD ("bread", 2900, "Try to eat not often"),
-    APPLE ("apple", 1500, "Eat every time when do you wand");
+    BEEF ("Beef", 180),
+    CARROT_JUICE ("Carrot_juice", 70),
+    CAVIAR ("Caviar", 250),
+    CHICKEN ("Chicken", 150),
+    DUCK ("Duck", 400),
+    OAT_FLAKE ("Oat_flake", 70),
+    PINK_SALMON ("Pink_salmon", 150),
+    VEAL ("Veal", 200);
 
     private String name;
     private int calories;
-    private String text;
 
-    Food(String name, int calories, String text) {
+    Food(String name, int calories) {
         this.calories = calories;
         this.name = name;
-        this.text = text;
     }
 
     public int getCalories() {
@@ -21,10 +24,6 @@ public enum Food {
 
     public String getName() {
         return name;
-    }
-
-    public String getText() {
-        return text;
     }
 
     @Override
