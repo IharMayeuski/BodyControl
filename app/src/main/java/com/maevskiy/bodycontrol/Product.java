@@ -1,14 +1,27 @@
 package com.maevskiy.bodycontrol;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@AllArgsConstructor
-@Data
 public class Product {
-    private int id;
     private String name;
     private int weight;
-    private double calories;
+    private int calories;
+
+    Product(String name, int weight, int calories) {
+        this.name = name;
+        this.weight = weight;
+        this.calories = calories;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getCalories() {
+        return calories;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + calories + " cal.) - " + weight + " (g.)";
+    }
 }
 
