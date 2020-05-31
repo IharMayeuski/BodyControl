@@ -6,7 +6,7 @@ public enum Food {
     CAVIAR ("Caviar", 250),
     CHICKEN ("Chicken", 150),
     DUCK ("Duck", 400),
-    OAT_FLAKE ("Oat-flake", 70),
+    OAT_FLAKE ("Oat_flake", 70),
     PINK_SALMON ("Pink_salmon", 150),
     VEAL ("Veal", 200);
 

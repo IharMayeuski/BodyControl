@@ -53,6 +53,7 @@ public class RunActivity extends AppCompatActivity {
     }
 
     public void backToMain (View view) {
+        pianoMusic.stop();
         Intent goToMain = new Intent();
         goToMain.setClass(this, MainActivity.class);
         startActivity(goToMain);
