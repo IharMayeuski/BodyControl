@@ -2,7 +2,6 @@ package com.maevskiy.bodycontrol;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -21,6 +20,7 @@ import java.util.List;
 import static android.widget.Toast.*;
 
 public class MainActivity extends AppCompatActivity {
+    MyDbAdapter myDbAdapter;
     List<String> productForChoice = new ArrayList();
     List<Product> products = new ArrayList();
     ArrayAdapter<Product> adapterProducts;
@@ -37,9 +37,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myDbAdapter = new MyDbAdapter(this);
         setContentView(R.layout.activity_main);
         productForChoice.add(DEFAULT_PRODUCT);
-        for (Food food : Food.values()) {
+
+        for (Food food : myDbAdapter.getData()) {
             productForChoice.add(food.getName());
         }
         Spinner spinnerProductForChoice = (Spinner) findViewById(R.id.products);
@@ -82,8 +84,14 @@ public class MainActivity extends AppCompatActivity {
                         && getProductByName(products, productName) == null
                         && weight > 0
         ) {
-            int productCalorie = Food.valueOf(productName.toUpperCase()).getCalories() * weight / 100;
-            adapterProducts.add(new Product(productName, weight, productCalorie));
+            List<Food> foods = myDbAdapter.getData();
+            int productCalorie = 0;
+            for (Food food: foods) {
+                if (food.getName().equals(productName)) {
+                    productCalorie = food.getCalories() * weight / 100;
+                    adapterProducts.add(new Product(productName, weight, productCalorie));
+                }
+            }
             adapterProducts.notifyDataSetChanged();
             calories += productCalorie;
             TextView textView = (TextView) findViewById(R.id.textViewCalories);
