@@ -1,15 +1,6 @@
 package com.maevskiy.bodycontrol;
 
-public enum Food {
-    BEEF ("Beef", 180),
-    CARROT_JUICE ("Carrot_juice", 70),
-    CAVIAR ("Caviar", 250),
-    CHICKEN ("Chicken", 150),
-    DUCK ("Duck", 400),
-    OAT_FLAKE ("Oat_flake", 70),
-    PINK_SALMON ("Pink_salmon", 150),
-    VEAL ("Veal", 200);
-
+public class Food {
     private String name;
     private int calories;
 
